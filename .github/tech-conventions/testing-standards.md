@@ -9,7 +9,7 @@
 We use the `testify` suite for unit tests. All tests must follow these conventions:
 
 * Name tests using the pattern: `TestFunctionNameScenarioDescription` (no underscores) (PascalCase)
-* Use `testify` everywhere, do not use `testing` directly for assertions
+* Use `testify` when possible, do not use `testing` directly
 * Use `testify/assert` for general assertions
 * Use `testify/require` for:
 	* All error or nil checks
@@ -19,15 +19,8 @@ We use the `testify` suite for unit tests. All tests must follow these conventio
 * Prefer **table-driven tests** for clarity and reusability, always have a name for each test case
 * Use subtests (`t.Run`) to isolate and describe scenarios
 * If the test is in a test suite, always use the test suite instead of `t` directly
-* **Call `t.Parallel()` first in every test and every subtest.** It is the default, and the `paralleltest` and `tparallel` linters enforce it. A test stays serial only when running beside other tests would change what it measures or asserts:
-	* tests that use `t.Setenv` (the linter exempts them by itself)
-	* tests that count the process's goroutines (`runtime.NumGoroutine`)
-	* allocation measurements (`testing.AllocsPerRun`, `testutil.CheckCeilings`, heap growth)
-	* the live smoke tests (`live_internal_test.go`), which the owner runs serially, by hand
-	* tests that share one server or `testutil.Script` and assert its call count, or need its subtests to finish in order; prefer one `Script` per subtest, so the subtests can run in parallel
-* Every serial test other than a `t.Setenv` one carries `//nolint:paralleltest // <reason>`, naming why
+* **Optionally use** `t.Parallel()` , but try and avoid it unless testing for concurrency issues
 * Avoid flaky, timing-sensitive, or non-deterministic tests
-* Prefer `testing/synctest` for anything time-based (timeouts, deadlines, timers): its bubble's fake clock makes the test instant and deterministic
 * Mock external dependencies — tests should be fast and deterministic
 * Use descriptive test names that explain the scenario being tested
 * Test error cases — ensure your error handling actually works
@@ -191,10 +184,10 @@ go tool cover -html=coverage.out
 
 Keep tests fast and focused:
 * **Use mocks** instead of real databases, APIs, or file systems
-* **Parallelize** with `t.Parallel()`: the default for every test and subtest (see above)
+* **Parallelize** independent tests with `t.Parallel()` when beneficial
 * **Skip slow tests** in short mode: `if testing.Short() { t.Skip("skipping in short mode") }`
 * **Use test fixtures** sparingly — prefer generating test data in code
-* **Avoid `time.Sleep`** — use channels, contexts, synchronization primitives, or `testing/synctest` for time
+* **Avoid `time.Sleep`** — use channels, contexts, or synchronization primitives
 
 <br><br>
 
@@ -217,10 +210,6 @@ func assertStuff(t *testing.T, a, b any) {
     // Too vague, hard to understand intent
 }
 ```
-
-Reuse the shared helpers before writing a new one:
-* `helpers_test.go` holds what the root package's external tests share: `newClient` and `newCatalog` (a client aimed at a test server or an in-memory `testutil.Script`), `requireValidation` and `requireConfigValidation` (a `*ValidationError` naming a field and a reason), `requireCallError` with `callErrorWant` (a `*CallError`, checking only the fields a test sets, and `OutcomeUnknown` always), `bind` (a typed read bound to its request, so reads of different result types share one table), `synthetic` (a fixture under `testdata/synthetic/`), and `assertSameBytes` and `assertExactJSON` (bytes as received)
-* `internal/testutil` holds the transports, servers and checks every test package shares, such as `Script`, `NewServer`, `CheckCeilings` and `AssertNeverPrints`
 
 <br><br>
 
