@@ -1,0 +1,12 @@
+{
+  "voice_id": "vc_synthetic_001",
+  "status": "ready",
+  "labels": {
+    "accent": "neutral",
+    "age": "adult"
+  },
+  "duration_s": 31.50,
+  "ratio": 1e-3,
+  "status": "ready-again",
+  "chunks": [1, 2, 3]
+}

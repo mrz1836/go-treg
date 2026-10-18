@@ -1,0 +1,8 @@
+{
+  "email": "secret.person@example.com",
+  "is_superadmin": true,
+  "onboarded": false,
+  "github": null,
+  "avatar_url": null,
+  "uploads": false
+}

@@ -1,0 +1,12 @@
+{
+  "days": 30,
+  "since": "2026-09-17",
+  "totals": {"call": 120, "local_run": 8, "server_run": 4, "total": 132},
+  "by_user": [
+    {"user_email": "secret.person@example.com", "call": 100, "local_run": 8, "server_run": 0, "total": 108},
+    {"user_email": "second.member@example.com", "call": 20, "local_run": 0, "server_run": 4, "total": 24}
+  ],
+  "by_tool": [{"name": "example-search", "total": 90}, {"name": "example-tts", "total": 42}],
+  "by_day": [{"day": "2026-10-15", "total": 70}, {"day": "2026-10-16", "total": 62}],
+  "spend": {"spend_micro": 4321000, "spend_usd": 4.321, "billed_calls": 97}
+}

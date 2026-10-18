@@ -1,0 +1,15 @@
+{
+  "tier": "credential",
+  "detail": "Uses the team's connected Acme Voice account.",
+  "metered": true,
+  "estimated_cost_micro": 6667,
+  "estimated_cost_usd": 0.006667,
+  "estimated_cost_usd_min": 0.005,
+  "authorization_method": "oauth_pkce",
+  "connect_capability": "acmevoice.oauth",
+  "connect_command": "treg connect acmevoice",
+  "action_label": "Connect Acme Voice",
+  "missing_message": "Connect an Acme Voice account first.",
+  "plan": {"steps": [{"do": "connect", "provider": "acmevoice"}],  "steps_total": 1},
+  "dropped": [{"param": "speed", "why": "not allowed"}]
+}

@@ -1,0 +1,198 @@
+# go-treg operation inventory: every Treg OpenAPI operation (openapi.json sha256 468107e5cc12d4bda18b3eac926bb35c9a2d52057152fef12c84e5f7591878c8, 2026-10-17), then supplements S1-S4.
+# Dispositions: I-exec, I-typed, I-stream = in this release; L-read, L-write, L-proto = later, needs separate approval; D-sec = deferred credential surface; O-ui, O-cli, O-bill, O-admin, O = outside the SDK.
+# auth: public = no auth header parameters; token = X-Treg-Token (plus X-Treg-Org for identity tokens); member = token required, not in OpenAPI.
+row	method	path	auth	disposition	operation	note
+1	GET	/meta	public	I-typed	OpServerInfo	CatalogClient.ServerInfo
+2	GET	/catalog/platforms	public	I-typed	OpCatalogPlatforms	CatalogClient.Platforms
+3	GET	/catalog/platforms/{slug}	public	I-typed	OpCatalogPlatform	CatalogClient.Platform
+4	GET	/catalog/providers/{service}	public	I-typed	OpCatalogProvider	CatalogClient.Provider
+5	GET	/catalog/search	public	I-typed	OpCatalogSearch	CatalogClient.Search (engine=agent: later)
+6	GET	/catalog/find	public	I-stream	OpCatalogFind	CatalogClient.Find (NDJSON)
+7	GET	/catalog/endpoints/{endpoint_id}	public	I-typed	OpCatalogEndpoint	CatalogClient.Endpoint
+8	POST	/feedback	token	L-write		explicit feedback
+9	GET	/feedback/{feedback_id}	token	L-read		
+10	POST	/reviews	token	L-write		explicit review
+11	POST	/hub/tools	token	L-write		hub publishing
+12	DELETE	/hub/tools/{tool_id}	token	L-write		hub publishing
+13	GET	/hub/tools/{tool_id}	token	L-read		
+14	PATCH	/hub/tools/{tool_id}	token	L-write		hub price
+15	PUT	/hub/tools/{tool_id}	token	L-write		hub publishing
+16	GET	/hub/tools/mine	token	L-read		
+17	GET	/hub/runs/{run_id}	token	L-read		
+18	POST	/hub/run	token	L-proto		hub folder run
+19	GET	/hub/tools/{tool_id}/earnings	token	L-read		
+20	GET	/hub/tools/{tool_id}/health	token	L-read		
+21	GET	/admin/hub/listings	token	O-admin		
+22	POST	/admin/hub/listings/{tool_id}	token	O-admin		
+23	GET	/admin/hub/updates	token	O-admin		
+24	POST	/admin/hub/updates/{tool_id}	token	O-admin		
+25	POST	/media	token	L-proto		hosted media upload
+26	GET	/auth/github	public	O-ui		
+27	GET	/auth/github/callback	public	O-ui		
+28	GET	/auth/google	public	O-ui		
+29	GET	/auth/google/callback	public	O-ui		
+30	POST	/auth/cli/start	public	O-ui		
+31	GET	/auth/cli/poll	public	O-ui		
+32	GET	/auth/cli/orgs	public	O-ui		
+33	POST	/auth/cli/approve	public	O-ui		
+34	GET	/auth/me	token	I-typed	OpAuthMe	Account().Me
+35	POST	/auth/logout	public	O-ui		
+36	POST	/auth/email/start	public	O-ui		
+37	POST	/auth/email/verify	public	O-ui		
+38	GET	/auth/invite-signin	public	O-ui		
+39	POST	/auth/invite-signin	public	O-ui		
+40	GET	/auth/cli-token	token	D-sec		GET that discloses a token
+41	POST	/auth/revoke-tokens	token	D-sec		
+42	POST	/users	public	O-ui		registration
+43	GET	/orgs	token	I-typed	OpListOrgs	Account().Orgs (identity tokens)
+44	POST	/orgs	token	L-write		
+45	GET	/orgs/{org_id}/invites	token	L-read		
+46	POST	/orgs/{org_id}/invites	token	L-write		
+47	POST	/invites/accept	public	O-ui		
+48	GET	/invites/mine	token	L-read		
+49	POST	/onboard/demo	token	O-ui		
+50	POST	/onboard/skip	token	O-ui		
+51	POST	/onboard/reset	token	O-ui		
+52	POST	/onboarding/start	token	O-ui		
+53	GET	/onboarding	token	O-ui		
+54	POST	/onboarding/answer	token	O-ui		
+55	POST	/onboarding/preview	token	O-ui		
+56	GET	/onboarding/preview/{preview_id}	token	O-ui		
+57	POST	/onboarding/preview/{preview_id}/answer	token	O-ui		
+58	POST	/onboarding/preview/{preview_id}/call	token	O-ui		
+59	POST	/demo/sandbox	public	O-ui		
+60	GET	/demo/sandbox/live	token	O-ui		
+61	GET	/demo/sandbox/skill	token	O-ui		
+62	GET	/skills/samples	public	O-ui		
+63	POST	/onboard/seed-tool	token	O-ui		
+64	POST	/onboard/accept-teammate	token	O-ui		
+65	POST	/invites/{invite_id}/accept	token	L-write		
+66	DELETE	/orgs/{org_id}/invites/{invite_id}	token	L-write		
+67	GET	/orgs/{org_id}/members	token	L-read		
+68	GET	/orgs/{org_id}/usage	token	I-typed	OpOrgUsage	Orgs().Usage (admin+)
+69	GET	/orgs/{org_id}/usage/spend	token	I-typed	OpOrgSpend	Orgs().Spend (admin+)
+70	GET	/orgs/{org_id}/balance	token	I-typed	OpOrgBalance	Orgs().Balance (role-dependent)
+71	GET	/orgs/{org_id}/tag-keys	token	I-typed	OpOrgTagKeys	Orgs().TagKeys (admin+)
+72	GET	/orgs/{org_id}/usage/by-tag	token	I-typed	OpOrgUsageByTag	Orgs().UsageByTag (admin+)
+73	DELETE	/orgs/{org_id}	token	L-write		destructive
+74	PATCH	/orgs/{org_id}	token	L-write		
+75	GET	/orgs/{org_id}/settings	token	L-read		
+76	PATCH	/orgs/{org_id}/settings	token	L-write		
+77	GET	/orgs/{org_id}/budgets	token	L-read		
+78	PUT	/orgs/{org_id}/budgets/{dim}	token	L-write		
+79	DELETE	/orgs/{org_id}/budgets/{dim}/{val}	token	L-write		
+80	PUT	/orgs/{org_id}/budgets/{dim}/{val}	token	L-write		
+81	GET	/billing	token	L-read		
+82	POST	/billing/topup	token	O-bill		
+83	POST	/billing/autotopup	token	O-bill		
+84	GET	/billing/history	token	L-read		
+85	POST	/billing/portal	token	O-bill		
+86	GET	/referrals	token	L-read		
+87	POST	/referrals/code	token	L-write		referral creation
+88	PATCH	/orgs/{org_id}/members/{user_id}/cap	token	L-write		
+89	PATCH	/orgs/{org_id}/members/{user_id}/access	token	L-write		
+90	GET	/usage/me	token	I-typed	OpUsageMe	Account().Usage
+91	DELETE	/orgs/{org_id}/members/{user_id}	token	L-write		
+92	PATCH	/orgs/{org_id}/members/{user_id}	token	L-write		
+93	POST	/orgs/{org_id}/leave	token	L-write		
+94	DELETE	/orgs/{org_id}/public-token	token	D-sec		
+95	POST	/orgs/{org_id}/public-token	token	D-sec		
+96	GET	/orgs/{org_id}/agents	token	D-sec		
+97	POST	/orgs/{org_id}/agents	token	D-sec		
+98	GET	/orgs/{org_id}/agents/{user_id}/connection	token	D-sec		
+99	POST	/agents/checkin	token	D-sec		
+100	GET	/orgs/{org_id}/agents/observed	token	D-sec		
+101	DELETE	/orgs/{org_id}/agents/{user_id}	token	D-sec		
+102	GET	/orgs/{org_id}/api-keys	token	D-sec		
+103	POST	/orgs/{org_id}/api-keys	token	D-sec		
+104	GET	/orgs/{org_id}/api-keys/spend	token	L-read		spend per key
+105	PATCH	/orgs/{org_id}/api-keys/{key_id}	token	D-sec		
+106	POST	/orgs/{org_id}/api-keys/{key_id}/disable	token	D-sec		
+107	POST	/orgs/{org_id}/api-keys/{key_id}/enable	token	D-sec		
+108	POST	/orgs/{org_id}/api-keys/{key_id}/revoke	token	D-sec		
+109	POST	/orgs/{org_id}/api-keys/{key_id}/rotate	token	D-sec		
+110	POST	/orgs/{org_id}/api-keys/{key_id}/hide	token	D-sec		
+111	GET	/orgs/{org_id}/api-keys/{key_id}/events	token	D-sec		
+112	GET	/orgs/{org_id}/provider-resources	token	I-typed	OpOrgProviderResources	Orgs().ProviderResources
+113	GET	/orgs/{org_id}/projects	token	L-read		
+114	POST	/orgs/{org_id}/projects	token	L-write		
+115	DELETE	/orgs/{org_id}/projects/{project_id}	token	L-write		
+116	DELETE	/orgs/{org_id}/pins	token	L-write		
+117	GET	/orgs/{org_id}/pins	token	L-read		
+118	POST	/orgs/{org_id}/pins	token	L-write		
+119	GET	/orgs/{org_id}/deny	token	L-read		
+120	POST	/orgs/{org_id}/deny	token	L-write		
+121	GET	/orgs/{org_id}/policy/cli-deny	token	O-cli		
+122	DELETE	/orgs/{org_id}/deny/{rule_id}	token	L-write		
+123	GET	/secrets	token	D-sec		
+124	POST	/secrets	token	D-sec		
+125	DELETE	/secrets/{secret_id}	token	D-sec		
+126	PATCH	/secrets/{secret_id}	token	D-sec		
+127	GET	/tools	token	I-typed	OpListTools	Tools().List
+128	POST	/tools	token	L-write		native tool registration
+129	GET	/tools/by-name/{name}	token	I-typed	OpToolByName	Tools().ByName
+130	DELETE	/tools/{tool_id}	token	L-write		
+131	PATCH	/tools/{tool_id}	token	L-write		
+132	POST	/tools/{name}/grant	token	O-cli		local-run grant
+133	POST	/tools/{name}/run-report	token	O-cli		local-run report
+134	POST	/skills	token	L-write		
+135	POST	/skills/analyze	token	L-write		
+136	POST	/skills/import	token	L-write		
+137	GET	/bundles	token	L-read		
+138	GET	/bundles/by-name/{name}	token	L-read		
+139	DELETE	/bundles/{bundle_id}	token	L-write		
+140	GET	/bundles/{bundle_id}	token	L-read		
+141	PATCH	/bundles/{bundle_id}	token	L-write		
+142	GET	/calls	token	I-typed	OpListCalls	Calls().List (before_id)
+143	GET	/calls/{call_id}/result	token	I-typed	OpCallResult	Calls().Result (stored flag)
+144	GET	/calls/{call_ref}	token	I-typed	OpGetCall	Calls().Get (+ledger)
+145	GET	/runs	token	L-read		
+146	GET	/oauth/providers	public	D-sec		
+147	POST	/oauth/start	token	D-sec		
+148	GET	/oauth/callback	public	O-ui		
+149	GET	/connections	token	D-sec		
+150	GET	/connections/{secret_id}/resources	token	D-sec		
+151	POST	/connections/{secret_id}/resource	token	D-sec		
+152	POST	/connections/token	token	D-sec		
+153	POST	/connections/{secret_id}/extra-credential	token	D-sec		
+154	DELETE	/connections/{secret_id}	token	D-sec		
+155	PATCH	/connections/{secret_id}	token	D-sec		
+156	GET	/oauth/status/{state}	token	D-sec		
+157	POST	/health/run	token	L-write		ACTIVE health test
+158	GET	/health	token	L-read		passive snapshot
+159	GET	/admin/stats	token	O-admin		
+160	GET	/admin/orgs	token	O-admin		
+161	DELETE	/admin/orgs/{org_id}	token	O-admin		
+162	GET	/admin/orgs/{org_id}	token	O-admin		
+163	GET	/admin/users	token	O-admin		
+164	GET	/admin/tools	token	O-admin		
+165	GET	/admin/share	token	O-admin		
+166	GET	/admin/calls	token	O-admin		
+167	GET	/admin/errors	token	O-admin		
+168	GET	/admin/health	token	O-admin		
+169	POST	/admin/users/{user_id}/superadmin	token	O-admin		
+170	POST	/admin/users/{user_id}/suspend	token	O-admin		
+171	DELETE	/admin/users/{user_id}	token	O-admin		
+172	POST	/admin/orgs/{org_id}/suspend	token	O-admin		
+173	POST	/admin/orgs/{org_id}/credit	token	O-admin		
+174	GET	/admin/reconcile/drift	token	O-admin		
+175	GET	/admin/reconcile/spend	token	O-admin		
+176	GET	/admin/reconcile/repeats	token	O-admin		
+177	GET	/admin/reconcile/asynctasks	token	O-admin		
+178	GET	/admin/archive	token	O-admin		
+179	GET	/admin/archive/keys	token	O-admin		
+180	GET	/admin/archive/body	token	O-admin		
+181	GET	/admin/referrals	token	O-admin		
+182	DELETE	/call/{rest}	token	I-exec	OpCall	Call / CallBytes / CallJSON
+183	GET	/call/{rest}	token	I-exec	OpCall	Call / CallBytes / CallJSON
+184	HEAD	/call/{rest}	token	I-exec	OpCall	Call / CallBytes / CallJSON
+185	OPTIONS	/call/{rest}	token	I-exec	OpCall	Call / CallBytes / CallJSON
+186	PATCH	/call/{rest}	token	I-exec	OpCall	Call / CallBytes / CallJSON
+187	POST	/call/{rest}	token	I-exec	OpCall	Call / CallBytes / CallJSON
+188	PUT	/call/{rest}	token	I-exec	OpCall	Call / CallBytes / CallJSON
+189	GET	/activity	token	L-read		opaque cursor
+190	POST	/run	token	L-proto		buffered exit-code protocol
+S1	GET	/catalog/examples/{id}	public	I-typed	OpCatalogExample	CatalogClient.Example (not in OpenAPI)
+S2	GET	/catalog/endpoints/{id}/access	member	I-typed	OpEndpointAccess	Client.EndpointAccess (not in OpenAPI)
+S3	ANY	/catalog/call/{rest}	-	O		connector-only (404 by default; not in OpenAPI)
+S4	-	/mcp/, /.well-known/*, /providers.json, /tool-requests, /table/	-	O		outside the SDK or unverified

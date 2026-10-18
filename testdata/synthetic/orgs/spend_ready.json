@@ -1,0 +1,17 @@
+{
+  "ready": true,
+  "history_from": "2026-01-01",
+  "from": "2026-10-01",
+  "to": "2026-10-16",
+  "group": "week",
+  "stack": "key",
+  "spent_micro": 4321000,
+  "charges": 97,
+  "series": [{"bucket": "2026-09-28", "total_micro": 1200000, "stack": {"7": 1000000, "8": 200000}}, {"bucket": "2026-10-05", "total_micro": 3121000, "stack": {"7": 3121000}}],
+  "buckets": ["2026-09-28", "2026-10-05"],
+  "ranking": [{"id": 7, "name": "ci-runner", "spent_micro": 4121000}, {"id": 8, "name": "laptop", "spent_micro": 200000}],
+  "options": {
+    "keys": [{"id": 7, "name": "ci-runner", "spent_micro": 4121000}, {"id": 8, "name": "laptop", "spent_micro": 200000}],
+    "providers": [{"id": "examplecorp", "spent_micro": 4000000}, {"id": "voiceco", "spent_micro": 321000}]
+  }
+}

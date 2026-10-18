@@ -1,0 +1,9 @@
+{
+  "org_id": 42,
+  "balance_micro": 0,
+  "balance_usd": 0.0,
+  "promo_grant_micro": 0,
+  "blocks": [],
+  "holds": [],
+  "entries": {"limit": 20, "offset": 0, "items": []}
+}

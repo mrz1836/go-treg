@@ -1,0 +1,16 @@
+{
+  "id": 9001,
+  "call_ref": "",
+  "endpoint_id": null,
+  "provider": null,
+  "credential_tier": null,
+  "method": "POST",
+  "path": "/call/example.web.search",
+  "status_code": 402,
+  "cached": null,
+  "created_at": "2026-10-16T12:00:00Z",
+  "stored": false,
+  "note": "results are stored only for metered platform 2xx calls",
+  "request": null,
+  "response": null
+}

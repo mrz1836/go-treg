@@ -1,0 +1,5 @@
+[
+  {"id": 101, "provider": "voiceco", "kind": "voice", "upstream_id": "vc_up_0001", "display_name": "Narrator A", "created_by": "member-17", "source_call_id": "5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f", "status": "active", "created_at": "2026-10-01T09:00:00Z", "updated_at": "2026-10-02T09:00:00Z", "deleted_at": null},
+  {"id": "vc_byok_7f3a", "provider": "voiceco", "kind": "voice", "upstream_id": "vc_byok_7f3a", "display_name": "Own Voice", "created_by": null, "source_call_id": null, "status": "ready", "created_at": null, "updated_at": null, "deleted_at": null},
+  {"id": 102, "provider": "voiceco", "kind": "voice", "upstream_id": "vc_up_0002", "display_name": "Retired Voice", "created_by": "member-17", "source_call_id": null, "status": "deleted", "created_at": "2026-09-01T09:00:00Z", "updated_at": "2026-10-10T09:00:00Z", "deleted_at": "2026-10-10T09:00:00Z"}
+]

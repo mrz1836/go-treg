@@ -1,0 +1,13 @@
+{
+  "key": "customer",
+  "days": 30,
+  "since": "2026-09-17",
+  "rows": [
+    {"value": "c-001", "charged_micro": 3000000, "charged_usd": 3.0, "calls": 60},
+    {"value": "c-002", "charged_micro": 821000, "charged_usd": 0.821, "calls": 25}
+  ],
+  "attributed_micro": 3821000,
+  "unattributed_micro": 500000,
+  "total_micro": 4321000,
+  "total_usd": 4.321
+}

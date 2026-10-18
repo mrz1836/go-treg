@@ -1,0 +1,18 @@
+{
+  "public_url": "https://treg.example.com",
+  "github": true,
+  "google": false,
+  "app_version": "2026.10.0-synthetic",
+  "treg_version": "0.42.0",
+  "hub": true,
+  "paused_providers": {
+    "examplespeech": {
+      "display_name": "Example Speech",
+      "message": "Paused for synthetic maintenance."
+    }
+  },
+  "referral": {
+    "referrer_micro": 5000000,
+    "referred_micro": 2500000
+  }
+}

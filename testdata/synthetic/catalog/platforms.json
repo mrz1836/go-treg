@@ -1,0 +1,44 @@
+{
+  "platforms": [
+    {
+      "slug": "voice-gen",
+      "label": "Voice generation",
+      "category": "audio",
+      "featured": 1,
+      "summary": "Synthetic voices and speech for tests.",
+      "price_from": {"type": "per_call", "value": 0.006667, "currency": "USD", "per": 1, "unit": "request", "usd": 0.006667, "source": "synthetic", "table": [{"tier": "standard", "usd": 0.006667}]},
+      "capabilities": 3,
+      "endpoints": 7,
+      "verified": 5,
+      "providers": ["acmevoice", "examplespeech"]
+    },
+    {
+      "slug": "web-seo",
+      "label": "Web SEO",
+      "category": "web",
+      "featured": null,
+      "summary": "Synthetic link and page metrics.",
+      "price_from": null,
+      "capabilities": 2,
+      "endpoints": 4,
+      "verified": 0,
+      "providers": ["sampleseo"]
+    },
+    {
+      "slug": "misc-tools",
+      "label": "Miscellaneous",
+      "category": "utility",
+      "summary": "A synthetic platform without a featured rank or a price.",
+      "capabilities": 0,
+      "endpoints": 0,
+      "verified": 0,
+      "providers": []
+    }
+  ],
+  "providers": {
+    "acmevoice": "Acme Voice",
+    "examplespeech": "Example Speech",
+    "sampleseo": "Sample SEO"
+  },
+  "generated_from": "synthetic-catalog-2026-10-01"
+}

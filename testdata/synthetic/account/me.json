@@ -1,0 +1,11 @@
+{
+  "email": "secret.person@example.com",
+  "is_superadmin": false,
+  "onboarded": true,
+  "github": "ghMARKER",
+  "avatar_url": "https://example.com/avatars/AVATARMARKER.png",
+  "uploads": true,
+  "org_id": 42,
+  "org": "acme-team",
+  "role": "admin"
+}

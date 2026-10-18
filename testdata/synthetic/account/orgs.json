@@ -1,0 +1,4 @@
+[
+  {"org_id": 42, "slug": "acme-team", "name": "Acme Team", "role": "admin", "active": true, "demo": false, "tool_count": 7, "avatar_url": "https://example.com/orgs/42.png"},
+  {"org_id": 77, "slug": "demo-team", "name": "Demo Team", "role": "member", "active": false, "demo": true, "tool_count": 0, "avatar_url": null}
+]

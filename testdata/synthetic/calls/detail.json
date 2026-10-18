@@ -1,0 +1,36 @@
+{
+  "call": {
+    "id": 9002,
+    "user_email": "second.member@example.com",
+    "tool_name": "example-tts",
+    "method": "POST",
+    "path": "/call/example.audio.tts",
+    "status_code": 202,
+    "kind": "call",
+    "client": "cli",
+    "api_key_id": null,
+    "api_key_name": null,
+    "api_key_prefix": null,
+    "endpoint_id": "example.audio.tts",
+    "provider": "voiceco",
+    "credential_tier": "byok",
+    "cost_estimated_micro": 3000,
+    "cost_observed_micro": 1500,
+    "cost_charged_micro": 1500,
+    "duration_ms": 950,
+    "response_bytes": 512,
+    "refused_by": null,
+    "call_ref": "8e1d7c6b5a4f3e2d1c0b9a8f7e6d5c4b:r0",
+    "budget_dim": "team",
+    "budget_val": "audio",
+    "tags": {"team": "audio"},
+    "created_at": "2026-10-16T12:30:00Z"
+  },
+  "async_task": {"task_id": "tsk_example_01", "state": "succeeded", "result": {"seconds": 12}},
+  "ledger": [
+    {"kind": "hold", "amount_micro": -3000, "endpoint_id": "example.audio.tts", "created_at": "2026-10-16T12:30:00Z"},
+    {"kind": "release", "amount_micro": 3000, "endpoint_id": "example.audio.tts", "created_at": "2026-10-16T12:31:02Z"},
+    {"kind": "charge", "amount_micro": -1500, "endpoint_id": null, "created_at": "2026-10-16T12:31:02Z"}
+  ],
+  "charged_micro": 1500
+}

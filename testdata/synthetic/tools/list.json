@@ -1,0 +1,33 @@
+[
+  {
+    "id": 501,
+    "name": "example-search",
+    "owner": "owner.marker@example.com",
+    "base_url": "https://api.example.com/v1",
+    "host": "api.example.com",
+    "bindings": [
+      {"secret_id": "sec_MARKERMARKER", "injector": "header", "location": "header", "name": "Authorization", "format": "Bearer {value}", "secret_field": null, "token_encode": null},
+      {"secret_id": 77, "injector": "query", "location": "query", "name": "api_key", "format": null, "secret_field": "key", "token_encode": "none"}
+    ],
+    "health_check": {"method": "GET", "path": "/health", "expect_status": 200},
+    "examples": [{"title": "Search", "method": "POST", "path": "/search", "body": {"q": "example"}}],
+    "cli": {"command": "example-search", "args": ["--json"]},
+    "server_runnable": true,
+    "project_id": null,
+    "bundle_id": 3
+  },
+  {
+    "id": 502,
+    "name": "example-tts",
+    "owner": "owner.marker@example.com",
+    "base_url": "https://tts.example.com",
+    "host": "tts.example.com",
+    "bindings": [],
+    "health_check": null,
+    "examples": [],
+    "cli": null,
+    "server_runnable": false,
+    "project_id": 9,
+    "bundle_id": null
+  }
+]

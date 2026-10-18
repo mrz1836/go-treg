@@ -1,0 +1,60 @@
+{
+  "provider": {
+    "service": "acmevoice",
+    "display_name": "Acme Voice",
+    "limits": "60 requests per minute",
+    "pricing_url": "https://acmevoice.example.com/pricing",
+    "docs": "https://acmevoice.example.com/docs",
+    "auth_kind": "oauth",
+    "metered": true
+  },
+  "platforms": [
+    {
+      "slug": "voice-gen",
+      "label": "Voice generation",
+      "tools": [
+        {
+          "id": "acmevoice.voice.any",
+          "provider": "acmevoice",
+          "provider_display": "Acme Voice",
+          "name": "Any voice route",
+          "summary": "Routes to the best synthetic voice row.",
+          "method": "POST",
+          "path": "/route/voice",
+          "scope": "any_account",
+          "tier": "core",
+          "kind": "routed",
+          "domain": "voice",
+          "call_template": "treg call acmevoice.voice.any",
+          "input": {"text": {"type": "string"}},
+          "test_request": null,
+          "cost": {"type": "per_success", "value": 0.01, "currency": "USD", "per": 1, "unit": "success", "usd": 0.01, "usd_min": 0.002, "varies": true},
+          "async": null,
+          "platform_eligible": false,
+          "platform_blocked": null,
+          "miss": null,
+          "status": null,
+          "status_note": null,
+          "superseded_by": null,
+          "verified": "2026-08-30",
+          "added": "2026-02-14",
+          "docs_url": "https://acmevoice.example.com/docs/route",
+          "has_example": false,
+          "routed_children": ["acmevoice.voice.clone", "examplespeech.tts.create"],
+          "children_hidden": 1,
+          "authorization_method": "oauth_pkce",
+          "authorization_methods": ["oauth_pkce", "device_code"],
+          "authorization_paths": {"oauth_pkce": "/connect/acmevoice"},
+          "required_scopes": ["voices:write"],
+          "required_resource": "https://acmevoice.example.com/",
+          "token_type": "bearer"
+        }
+      ]
+    },
+    {
+      "slug": "web-seo",
+      "label": "Web SEO",
+      "tools": []
+    }
+  ]
+}

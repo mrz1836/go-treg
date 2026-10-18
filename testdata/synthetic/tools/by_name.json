@@ -1,0 +1,16 @@
+{
+  "id": 501,
+  "name": "example-search",
+  "owner": "owner.marker@example.com",
+  "base_url": "https://api.example.com/v1",
+  "host": "api.example.com",
+  "bindings": [
+    {"secret_id": "sec_MARKERMARKER", "injector": "header", "location": "header", "name": "Authorization", "format": "Bearer {value}", "secret_field": null, "token_encode": null}
+  ],
+  "health_check": {"method": "GET", "path": "/health", "expect_status": 200},
+  "examples": [{"title": "Search", "method": "POST", "path": "/search", "body": {"q": "example"}}],
+  "cli": {"command": "example-search", "args": ["--json"]},
+  "server_runnable": true,
+  "project_id": 9,
+  "bundle_id": null
+}

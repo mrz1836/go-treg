@@ -1,0 +1,28 @@
+{
+  "id": 9003,
+  "call_ref": "5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+  "endpoint_id": "example.web.search",
+  "provider": "examplecorp",
+  "credential_tier": "platform",
+  "method": "POST",
+  "path": "/call/example.web.search",
+  "status_code": 200,
+  "cached": false,
+  "created_at": "2026-10-16T12:34:56Z",
+  "stored": true,
+  "note": null,
+  "request": {
+    "method": "POST",
+    "url": "https://example.com/MARKERPATH/v1/search",
+    "body_text": "{\"q\":\"BODYMARKER request\"}"
+  },
+  "response": {
+    "status_code": 200,
+    "media_type": "application/json",
+    "size_bytes": 38,
+    "fetched_at": "2026-10-16T12:34:57Z",
+    "origin": "upstream",
+    "version": 2,
+    "body_text": "{\"results\":[\"BODYMARKER response\"]}"
+  }
+}

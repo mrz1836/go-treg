@@ -1,0 +1,117 @@
+{
+  "platform": {
+    "slug": "voice-gen",
+    "label": "Voice generation",
+    "category": "audio"
+  },
+  "capabilities": [
+    {
+      "id": "voice.clone",
+      "description": "Clone a voice from a short sample.",
+      "endpoints": [
+        {
+          "id": "acmevoice.voice.clone",
+          "provider": "acmevoice",
+          "provider_display": "Acme Voice",
+          "name": "Clone a voice",
+          "summary": "Creates a synthetic voice from a short sample.",
+          "method": "POST",
+          "path": "/v1/voices/clone",
+          "scope": "own_account",
+          "tier": "core",
+          "kind": "action",
+          "domain": "voice",
+          "call_template": "treg call acmevoice.voice.clone",
+          "input": {"sample_url":  {"type": "url", "required": true}, "name": {"type": "string", "max": 64}},
+          "test_request": {"body": {"sample_url": "https://example.com/sample.wav", "name": "Synthetic"}},
+          "strict_query": true,
+          "strict_body": true,
+          "body_allowlist": true,
+          "cost": {"type": "per_call", "value": 0.006667, "currency": "USD", "per": 1, "unit": "request", "usd": 0.006667, "usd_min": 0.005, "source": "provider_page", "source_url": "https://acmevoice.example.com/pricing", "checked": "2026-09-15", "confidence": "medium", "note": "Synthetic list price.", "varies": false, "table": [{"tier": "standard", "usd": 0.006667}], "settle": {"on": "success"}},
+          "async": {"id_from": "id", "poll": {"endpoint": "acmevoice.jobs.get", "param": {"in": "pathParams", "name": "id"}}, "status": {"path": "status", "success": ["succeeded"], "failure": ["failed", "canceled"]}, "result": {"path": "output"}, "interval": 2},
+          "platform_eligible": true,
+          "platform_auth": "shared_key",
+          "platform_blocked": null,
+          "miss": {"status": 404, "means": "The voice sample was not found."},
+          "not_found": {"status": 410, "means": "The voice was deleted."},
+          "status": null,
+          "status_note": null,
+          "superseded_by": null,
+          "verified": "2026-09-20",
+          "added": "2026-01-05",
+          "docs_url": "https://acmevoice.example.com/docs/clone",
+          "has_example": true,
+          "observed": {"p50_ms": 840, "samples": 12,  "window": "7d"},
+          "reviews": [{"stars": 4, "text": "Synthetic review."}]
+        }
+      ]
+    }
+  ],
+  "extended": [
+    {"id": "examplespeech.voice.list", "note": "Synthetic extended row."}
+  ],
+  "hidden_count": 2,
+  "domains": [
+    {
+      "domain": "voice",
+      "rows": [
+        {
+          "kind": "data",
+          "capability": "speech.legacy",
+          "description": "Retired synthetic speech rows.",
+          "domain": "voice",
+          "endpoints": [
+            {
+              "id": "examplespeech.tts.legacy",
+              "provider": "examplespeech",
+              "provider_display": "Example Speech",
+              "name": "Legacy text to speech",
+              "summary": "A retired synthetic row.",
+              "method": "GET",
+              "path": "/legacy/tts",
+              "scope": "",
+              "tier": "extended",
+              "kind": "data",
+              "domain": "voice",
+              "call_template": "treg call examplespeech.tts.legacy",
+              "input": null,
+              "test_request": null,
+              "cost": null,
+              "async": null,
+              "platform_eligible": null,
+              "platform_blocked": "provider_terms",
+              "miss": null,
+              "status": "retired",
+              "status_note": "Replaced by a newer synthetic row.",
+              "superseded_by": "examplespeech.tts.create",
+              "verified": null,
+              "added": null,
+              "docs_url": "",
+              "has_example": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "providers": {
+    "acmevoice": {
+      "service": "acmevoice",
+      "display_name": "Acme Voice",
+      "limits": "60 requests per minute",
+      "pricing_url": "https://acmevoice.example.com/pricing",
+      "docs": "https://acmevoice.example.com/docs",
+      "auth_kind": "api_key",
+      "metered": true
+    },
+    "examplespeech": {
+      "service": "examplespeech",
+      "display_name": "Example Speech",
+      "limits": null,
+      "pricing_url": null,
+      "docs": "https://speech.example.com/docs",
+      "auth_kind": "oauth",
+      "metered": false
+    }
+  }
+}
