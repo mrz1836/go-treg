@@ -41,7 +41,7 @@
        &nbsp;&nbsp;&nbsp;&nbsp; <code>Community</code> &nbsp;&nbsp;
     </td>
     <td align="left">
-       <a href="https://github.com/mrz1836/go-treg/graphs/contributors"><img src="https://img.shields.io/github/contributors/mrz1836/go-treg?style=flat-square&color=orange" alt="Contributors"></a>
+       <a href="https://github.com/mrz1836/go-treg/graphs/contributors"><img src="https://img.shields.io/github/contributors/mrz1836/go-treg.svg?style=flat-square&color=orange" alt="Contributors"></a>
        <a href="https://mrz1818.com/"><img src="https://img.shields.io/badge/donate-bitcoin-ff9900?style=flat-square&logo=bitcoin" alt="Bitcoin"></a>
     </td>
   </tr>
