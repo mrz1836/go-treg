@@ -65,10 +65,11 @@ func assertOrgsAdminBalance(t *testing.T, b treg.Balance) {
 	assert.Equal(t, treg.Some(treg.MicroUSD(5_000_000)), b.PromoGrantMicro)
 	require.Len(t, b.Blocks, 2)
 	assert.Equal(t, treg.CreditBlock{
-		ID: 301, Kind: "promo", AmountMicro: 5_000_000, RemainingMicro: 2_500_000,
+		ID: "301", Kind: "promo", AmountMicro: 5_000_000, RemainingMicro: 2_500_000,
 		RemainingUSD: treg.Some(treg.Decimal("2.50")), Currency: treg.Some("usd"),
 		ExpiresAt: treg.Some("2026-12-31T00:00:00Z"), CreatedAt: "2026-09-01T00:00:00Z",
 	}, b.Blocks[0])
+	assert.Equal(t, "302", b.Blocks[1].ID)
 	assert.Equal(t, treg.Some(treg.Decimal("10")), b.Blocks[1].RemainingUSD)
 	assert.Equal(t, treg.Null[string](), b.Blocks[1].ExpiresAt)
 	require.Len(t, b.Holds, 1)
@@ -80,18 +81,19 @@ func assertOrgsAdminBalance(t *testing.T, b treg.Balance) {
 	assert.Equal(t, int64(10), b.Entries.Offset)
 	require.Len(t, b.Entries.Items, 2)
 	charge := b.Entries.Items[0]
-	assert.Equal(t, int64(7001), charge.ID)
+	assert.Equal(t, "7001", charge.ID)
 	assert.Equal(t, "charge", charge.Kind)
 	assert.Equal(t, treg.MicroUSD(-1500), charge.AmountMicro)
 	assert.Equal(t, "-$0.0015", charge.AmountMicro.String())
 	assert.Equal(t, treg.Some(treg.Decimal("-0.0015")), charge.AmountUSD)
-	assert.Equal(t, treg.Some[int64](302), charge.BlockID)
+	assert.Equal(t, treg.Some("302"), charge.BlockID, "a block's id, as the block's own")
 	assert.Equal(t, treg.Some(authReadCallRef), charge.CallRef)
 	assert.Equal(t, treg.Some[treg.EndpointID]("example.web.search"), charge.EndpointID)
 	assertExactJSON(t, `{"tags": {"customer": "c-001"}, "note": "synthetic"}`, charge.Meta)
 	topup := b.Entries.Items[1]
 	assert.Equal(t, treg.Some(treg.Decimal("10.000000")), topup.AmountUSD, "trailing zeros are kept")
-	assert.Equal(t, treg.Null[int64](), topup.BlockID)
+	assert.Equal(t, "7000", topup.ID)
+	assert.Equal(t, treg.Null[string](), topup.BlockID)
 	assert.Equal(t, treg.Null[string](), topup.CallRef)
 	assert.Equal(t, treg.Null[treg.EndpointID](), topup.EndpointID)
 	assertExactJSON(t, "{}", topup.Meta)
@@ -602,7 +604,7 @@ func TestOrgsMalformedResponses(t *testing.T) {
 			extra + `]}}`
 	}
 	entry := func(meta string) string {
-		return `{"id":1,"kind":"charge","amount_micro":-1,"meta":` + meta + `,"created_at":"2026-10-16T00:00:00Z"}`
+		return `{"id":"1","kind":"charge","amount_micro":-1,"meta":` + meta + `,"created_at":"2026-10-16T00:00:00Z"}`
 	}
 	balanceRead := bind(treg.OrgsService.Balance, treg.BalanceRequest{OrgID: 42})
 	spendRead := bind(treg.OrgsService.Spend, treg.SpendRequest{OrgID: 42})
@@ -618,7 +620,7 @@ func TestOrgsMalformedResponses(t *testing.T) {
 			balanceRead.erased(), treg.OpOrgBalance, "duplicate_key",
 		},
 		{
-			"Balance duplicate key in a block", `{"org_id":42,"balance_micro":1,"blocks":[{"id":1,"kind":"a","kind":"b"}]}`,
+			"Balance duplicate key in a block", `{"org_id":42,"balance_micro":1,"blocks":[{"id":"1","kind":"a","kind":"b"}]}`,
 			balanceRead.erased(), treg.OpOrgBalance, "duplicate_key",
 		},
 		{
@@ -640,7 +642,7 @@ func TestOrgsMalformedResponses(t *testing.T) {
 		{"Balance array body", `[]`, balanceRead.erased(), treg.OpOrgBalance, "decode"},
 		{
 			"Balance duplicate key next to meta",
-			balance(`{"id":1,"id":2,"kind":"charge","amount_micro":-1,"meta":{},"created_at":"x"}`),
+			balance(`{"id":"1","id":"2","kind":"charge","amount_micro":-1,"meta":{},"created_at":"x"}`),
 			balanceRead.erased(), treg.OpOrgBalance, "duplicate_key",
 		},
 		{
