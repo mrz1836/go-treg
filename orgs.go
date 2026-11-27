@@ -52,9 +52,10 @@ type Balance struct {
 	Entries         BalanceEntries     `json:"entries"`
 }
 
-// CreditBlock is a block of credit.
+// CreditBlock is a block of credit. ID is the block's id, which the gateway
+// sends as a string; it is opaque.
 type CreditBlock struct {
-	ID             int64             `json:"id"`
+	ID             string            `json:"id"`
 	Kind           string            `json:"kind"`
 	AmountMicro    MicroUSD          `json:"amount_micro"`
 	RemainingMicro MicroUSD          `json:"remaining_micro"`
@@ -79,13 +80,15 @@ type BalanceEntries struct {
 	Items  []BalanceEntry `json:"items"`
 }
 
-// BalanceEntry is one ledger entry. Meta stays raw.
+// BalanceEntry is one ledger entry. ID, and BlockID when the entry draws on
+// a block, are opaque ids the gateway sends as strings; BlockID matches a
+// CreditBlock's ID. Meta stays raw.
 type BalanceEntry struct {
-	ID          int64                `json:"id"`
+	ID          string               `json:"id"`
 	Kind        string               `json:"kind"`
 	AmountMicro MicroUSD             `json:"amount_micro"`
 	AmountUSD   Optional[Decimal]    `json:"amount_usd,omitzero"`
-	BlockID     Optional[int64]      `json:"block_id,omitzero"`
+	BlockID     Optional[string]     `json:"block_id,omitzero"`
 	CallRef     Optional[string]     `json:"call_id,omitzero"`
 	EndpointID  Optional[EndpointID] `json:"endpoint_id,omitzero"`
 	Meta        json.RawMessage      `json:"meta,omitempty"`
