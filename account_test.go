@@ -37,7 +37,7 @@ func TestAccountMeDecodesFixture(t *testing.T) {
 			assert.Equal(t, authReadEmailMarker, id.Email)
 			assert.False(t, id.IsSuperadmin)
 			assert.True(t, id.Onboarded)
-			assert.Equal(t, treg.Some("ghMARKER"), id.GitHub)
+			assert.Equal(t, treg.Some(true), id.GitHub, "github is a boolean, as Treg sends it")
 			assert.Equal(t, treg.Some("https://example.com/avatars/AVATARMARKER.png"), id.AvatarURL)
 			assert.Equal(t, treg.Some(true), id.Uploads)
 			assert.Equal(t, treg.Some[int64](42), id.OrgID)
@@ -52,7 +52,7 @@ func TestAccountMeDecodesFixture(t *testing.T) {
 		id := res.Value
 		assert.True(t, id.IsSuperadmin)
 		assert.False(t, id.Onboarded)
-		assert.Equal(t, treg.Null[string](), id.GitHub)
+		assert.Equal(t, treg.Null[bool](), id.GitHub)
 		assert.Equal(t, treg.Null[string](), id.AvatarURL)
 		assert.Equal(t, treg.Some(false), id.Uploads, "false is a value, not absent")
 		assert.Equal(t, treg.Optional[int64]{}, id.OrgID, "OrgID is absent")
@@ -236,13 +236,13 @@ func TestAccountMalformedResponses(t *testing.T) {
 
 func TestAccountIdentityPrivacy(t *testing.T) {
 	t.Parallel()
-	markers := []string{authReadEmailMarker, "ghMARKER", "AVATARMARKER"}
+	markers := []string{authReadEmailMarker, "AVATARMARKER"}
 	res, _ := authReadBody(t, testutil.HTTP1, synthetic(t, "account/me.json"), bind(treg.AccountService.Me, treg.MeRequest{}))
 	id := res.Value
 	t.Run("prints its shape", func(t *testing.T) {
 		t.Parallel()
 		require.Equal(t, authReadEmailMarker, id.Email, "the data stays accessible")
-		require.Equal(t, treg.Some("ghMARKER"), id.GitHub)
+		require.Equal(t, treg.Some(true), id.GitHub)
 		testutil.AssertNeverPrints(t, &id, markers...)
 		testutil.AssertNeverPrints(t, res, markers...)
 		testutil.AssertNeverPrints(t, []treg.Identity{id}, markers...)

@@ -22,13 +22,14 @@ func (c *Client) Account() AccountService { return AccountService{c: c} }
 type MeRequest struct{}
 
 // Identity is GET /auth/me: who the token belongs to. OrgID, Org and Role
-// are present when the caller authenticated with a token. It is personal
+// are present when the caller authenticated with a token. GitHub is a flag:
+// Treg sends the github member as a boolean, not a login. It is personal
 // data, so it prints only whether those fields are set.
 type Identity struct {
 	Email        string           `json:"email"`
 	IsSuperadmin bool             `json:"is_superadmin"`
 	Onboarded    bool             `json:"onboarded"`
-	GitHub       Optional[string] `json:"github,omitzero"`
+	GitHub       Optional[bool]   `json:"github,omitzero"`
 	AvatarURL    Optional[string] `json:"avatar_url,omitzero"`
 	Uploads      Optional[bool]   `json:"uploads,omitzero"`
 	OrgID        Optional[int64]  `json:"org_id,omitzero"`
